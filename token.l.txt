@@ -1,0 +1,28 @@
+
+%{
+#include <stdio.h>
+int count = 0;
+%}
+
+%%
+"int"|"float"|"char"|"if"|"else"|"while"|"return"|"void" { count++; }
+[A-Za-z_][A-Za-z0-9_]*                                  { count++; }
+[0-9]+                                                  { count++; }
+"=="|"!="|"<="|">="|"++"|"--"|"+"|"-"|"*"|"/"|"="|"<"|">" { count++; }
+[(){};,]                                                { count++; }
+[ \t\n]+                                                ;
+.                                                       ;
+%%
+
+int main()
+{
+    printf("Enter C program (Ctrl+Z, Enter to finish):\n");
+    yylex();
+    printf("\nNumber of tokens = %d\n", count);
+    return 0;
+}
+
+int yywrap()
+{
+    return 1;
+}

@@ -1,0 +1,27 @@
+
+%{
+#include <stdio.h>
+int count = 0;
+%}
+
+%%
+"<"[^>]+">"    {
+                   printf("%s\n", yytext);
+                   count++;
+                }
+.|\n           ;
+%%
+
+int main()
+{
+    printf("Enter HTML code (Ctrl+Z, Enter to finish):\n");
+    yylex();
+
+    printf("\nNumber of HTML tags = %d\n", count);
+    return 0;
+}
+
+int yywrap()
+{
+    return 1;
+}

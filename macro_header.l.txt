@@ -1,0 +1,28 @@
+
+%{
+#include <stdio.h>
+%}
+
+%%
+"#include"[ \t]*"<"[^>]+">" {
+    printf("%s - Header file\n", yytext);
+}
+
+"#define"[ \t]+[A-Za-z_][A-Za-z0-9_]* {
+    printf("%s - Macro definition\n", yytext);
+}
+
+.|\n    ;
+%%
+
+int main()
+{
+    printf("Enter C code (Ctrl+Z, Enter to finish):\n");
+    yylex();
+    return 0;
+}
+
+int yywrap()
+{
+    return 1;
+}

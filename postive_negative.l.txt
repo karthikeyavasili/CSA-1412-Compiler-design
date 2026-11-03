@@ -1,0 +1,26 @@
+
+%{
+#include <stdio.h>
+%}
+
+%%
+-[0-9]+      { printf("Negative number\n"); }
+[0-9]+       {
+                 if (atoi(yytext) == 0)
+                     printf("Zero\n");
+                 else
+                     printf("Positive number\n");
+             }
+%%
+
+int main()
+{
+    printf("Enter a number: ");
+    yylex();
+    return 0;
+}
+
+int yywrap()
+{
+    return 1;
+}

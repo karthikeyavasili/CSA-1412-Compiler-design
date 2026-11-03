@@ -1,0 +1,28 @@
+
+%{
+#include <stdio.h>
+int rel = 0, arith = 0;
+%}
+
+%%
+"=="|"!="|"<="|">="|"<"|">"  { rel++; }
+"++"|"--"|"+"|"-"|"*"|"/"|"%" { arith++; }
+[ \t\n]+                       ;
+.                              ;
+%%
+
+int main()
+{
+    printf("Enter the C program (Ctrl+Z, Enter to finish):\n");
+    yylex();
+
+    printf("\nRelational operators = %d\n", rel);
+    printf("Arithmetic operators = %d\n", arith);
+
+    return 0;
+}
+
+int yywrap()
+{
+    return 1;
+}

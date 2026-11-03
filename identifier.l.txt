@@ -1,0 +1,29 @@
+
+%{
+#include <stdio.h>
+%}
+
+%%
+[A-Za-z_][A-Za-z0-9_]*  { printf("Valid Identifier\n"); }
+[0-9][A-Za-z0-9_]*      { printf("Invalid Identifier\n"); }
+.+                      { printf("Invalid Identifier\n"); }
+%%
+
+int main()
+{
+    char input[100];
+
+    printf("Enter an identifier: ");
+    scanf("%99s", input);
+
+    YY_BUFFER_STATE buffer = yy_scan_string(input);
+    yylex();
+    yy_delete_buffer(buffer);
+
+    return 0;
+}
+
+int yywrap()
+{
+    return 1;
+}
